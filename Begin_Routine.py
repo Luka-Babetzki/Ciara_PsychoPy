@@ -1,47 +1,35 @@
-### displaychecker – Begin Routine ###
-from psychopy import core, visual, event
-
-# Initialize the trial clock
+# Setup trial clock
 trialClock = core.Clock()
 
-# Check for termination key
-if trial_key.keys == 't':
-    trialselectloop.finished = True
-    continueRoutine = False
-
-# (Optional) Movie stimulus – uncomment and adjust if needed:
-# movie = visual.MovieStim3(
-#     win=win, name='movie', units='cm',
-#     noAudio=False,
-#     filename='C:\\Infant Fantasia TEST\\Fantasia1min30.mp4',
-#     ori=0, pos=(0, 0), opacity=1,
-#     loop=True,
-#     size=[22.5,12.5],
-#     depth=-1.0,
-# )
-# movie.setAutoDraw(True)
-
-# Initialize the checker stimulus.
-# Note: The size is reduced from (30,30) to (15,15) so it fits better around the video.
+# Create checker stimulus
 checker = visual.ImageStim(
     win=win,
-    name='checker', units='cm',
-    image='checker.jpg', mask=None,
-    ori=0, pos=(0, 0), size=(15, 15),
-    color=[1, 1, 1], colorSpace='rgb', opacity=1,
-    flipHoriz=False, flipVert=False,
-    texRes=128, interpolate=True, depth=-3.0
+    name='checker', 
+    image='checker.jpg',
+    pos=(0, 0),
+    size=(5, 5),
+    units='cm'
 )
-checker.drawing = False
+
+# If image fails, use pattern instead
+if not os.path.exists('checker.jpg'):
+    checker = visual.RadialStim(
+        win=win, 
+        radialCycles=4, 
+        angularCycles=8,
+        size=(5, 5),
+        units='cm'
+    )
+
+# Hide checker initially
 checker.setAutoDraw(False)
-checker.waiting = False
 
-# Duration of the trial (in seconds)
-trialduration = 90
+# Variables for timing
+t = 0
+checker.waiting = True
+checker.drawing = False
+checkerOnset = random.randint(2, 4)  # First appearance time
 
-# Lists to record onsets and inter-stimulus intervals (ISIs)
+# Data storage
 checkerOnsets = []
 checkerISIs = []
-
-# Variable to hold the next onset time for the checker
-checkerOnset = None

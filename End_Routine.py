@@ -1,5 +1,5 @@
-thisExp.addData('checkerISIs', checkerISIs)
+# Store data
 thisExp.addData('checkerOnsets', checkerOnsets)
+thisExp.addData('checkerISIs', checkerISIs)
 thisExp.addData('checker_count', checker_count)
-checker.waiting = False
-checker.drawing = False
+thisExp.nextEntry()
